@@ -44,7 +44,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ onNext }) => {
   return (
     <div className="flex justify-center items-center min-h-[60vh]">
       <div className="w-full max-w-4xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-bold mb-6 text-center text-blue-950">
+        <h2 className="text-4xl font-bold mb-6 text-center text-blue-950">
           Personal Info
         </h2>
         <form
@@ -64,7 +64,7 @@ const PersonalInfo: React.FC<PersonalInfoProps> = ({ onNext }) => {
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className={`w-full p-3 border text-blue-500 ${
+              className={`w-full p-3 border ${
                 errors.name ? "border-red-500" : "border-gray-300"
               } rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500`}
               placeholder="Enter your name"

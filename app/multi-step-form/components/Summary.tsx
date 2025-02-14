@@ -20,12 +20,14 @@ interface SummaryProps {
   selectedPlan: Plan | null;
   selectedAddOns: AddOn[];
   isYearly: boolean;
+  onSubmit: () => void; // Add onSubmit prop
 }
 
 const Summary: React.FC<SummaryProps> = ({
   selectedPlan,
   selectedAddOns,
   isYearly,
+  onSubmit,
 }) => {
   if (!selectedPlan) {
     return <div>No plan selected.</div>;
@@ -36,7 +38,7 @@ const Summary: React.FC<SummaryProps> = ({
     ? selectedPlan.yearlyPrice
     : selectedPlan.monthlyPrice;
   const addOnsTotal = selectedAddOns.reduce(
-    (total, addOn) => total + addOn.price,
+    (total, addOn) => total + (isYearly ? addOn.price * 12 : addOn.price),
     0
   );
   const total = planPrice + addOnsTotal;
@@ -44,21 +46,21 @@ const Summary: React.FC<SummaryProps> = ({
   return (
     <div className="flex justify-center items-center min-h-[60vh]">
       <div className="w-full max-w-4xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold mb-6 text-center text-blue-950">
+        <h2 className="text-4xl font-semibold mb-6 text-center">
           Finishing Up
         </h2>
-        <p className="text-gray-700 text-center mb-8">
+        <p className="text-gray-600 text-center mb-8">
           Double-check everything looks OK before confirming.
         </p>
         <div className="bg-gray-50 p-6 rounded-lg">
           <div className="flex justify-between items-center border-b border-gray-200 pb-4 mb-4">
             <div>
-              <h3 className="text-lg font-semibold text-blue-500">
+              <h3 className="text-lg font-semibold">
                 {selectedPlan.name} ({isYearly ? "Yearly" : "Monthly"})
               </h3>
-              <button className="text-blue-900 underline">Change</button>
+              <button className="text-blue-600 underline">Change</button>
             </div>
-            <p className="text-lg font-semibold text-blue-500">
+            <p className="text-lg font-semibold">
               ${isYearly ? selectedPlan.yearlyPrice : selectedPlan.monthlyPrice}
               /{isYearly ? "yr" : "mo"}
             </p>
@@ -69,7 +71,8 @@ const Summary: React.FC<SummaryProps> = ({
                 <div key={addOn.id} className="flex justify-between">
                   <p className="text-gray-600">{addOn.title}</p>
                   <p className="text-gray-800">
-                    +${addOn.price}/{isYearly ? "yr" : "mo"}
+                    +${isYearly ? addOn.price * 12 : addOn.price}/
+                    {isYearly ? "yr" : "mo"}
                   </p>
                 </div>
               ))}
@@ -85,6 +88,14 @@ const Summary: React.FC<SummaryProps> = ({
           <p className="text-xl font-semibold text-blue-600">
             ${total}/{isYearly ? "yr" : "mo"}
           </p>
+        </div>
+        <div className="flex justify-end mt-8">
+          <button
+            onClick={onSubmit} // Use the onSubmit prop
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>

@@ -61,7 +61,7 @@ const SelectPlan: React.FC<SelectPlanProps> = ({
   return (
     <div className="flex justify-center items-center min-h-[60vh]">
       <div className="w-full max-w-4xl px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl font-semibold mb-6 text-center text-blue-950">
+        <h2 className="text-4xl font-semibold mb-6 text-center text-blue-950">
           Select Your Plan
         </h2>
         <p className="text-gray-600 text-center mb-8">
